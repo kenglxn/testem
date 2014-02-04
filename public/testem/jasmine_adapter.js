@@ -35,6 +35,7 @@ function jasmineAdapter(socket){
         
         for (var i = 0, len = items.length; i < len; i++){
             var item = items[i]
+            if (item.type === 'log') continue
             var passed = item.passed()
             test.total++
             if (passed)
@@ -43,7 +44,7 @@ function jasmineAdapter(socket){
                 test.failed++
             test.items.push({    
                 passed: passed,
-                message: (typeof item.message === 'string' ? item.message : item.message.toString()),
+                message: item.message,
                 stack: item.trace.stack ? item.trace.stack : undefined
             })
         }
